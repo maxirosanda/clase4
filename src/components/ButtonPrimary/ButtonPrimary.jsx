@@ -1,8 +1,8 @@
 import './ButtonPrimary.css'
 
-function ButtonPrimary ({children}){
+function ButtonPrimary ({children,onClick}){
     return (
-        <button className='buttonPrimary'>
+        <button onClick={onClick} className='buttonPrimary'>
             {children}
         </button>
     )

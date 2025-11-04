@@ -9,6 +9,11 @@
     border-radius: 8px;
 }
 
+.itemDetail-buttons{
+    display: flex;
+    gap:10px;
+}
+
 .itemDetail-title{
     text-align: center;
 }
