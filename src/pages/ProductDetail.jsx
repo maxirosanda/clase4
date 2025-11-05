@@ -17,7 +17,7 @@ function ProductDetail () {
                 console.log(error)
             }
         })()
-    },[])
+    },[productId])
 
 
     return (

@@ -4,12 +4,14 @@ import Products from './pages/Products'
 import ProductDetail from './pages/ProductDetail';
 import CartDetail from './pages/CartDetail';
 import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
 
 function App() {
 
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<NotFound/>}/>
         <Route path="/" element={<Products/>}/>
         <Route path="/product-detail/:productId" element={<ProductDetail/>}/>
         <Route path="/cart-detail" element={<CartDetail/>}/>

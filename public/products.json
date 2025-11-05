@@ -3,6 +3,7 @@
       "id": 1,
       "title": "Cuaderno A4 Rayado",
       "description": "Cuaderno de tapa dura con 80 hojas rayadas.",
+      "category":"",
       "price": 2500,
       "stock": 30,
       "image": "https://example.com/cuaderno-a4.jpg"
