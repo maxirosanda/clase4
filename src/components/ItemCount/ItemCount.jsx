@@ -1,9 +1,8 @@
 import "./ItemCount.css"
-import useCount from "../../hooks/useCount"
 
-function ItemCount ({stock}) {
+function ItemCount ({count, less,add}) {
 
-    const {count,less, add} = useCount({initia:1,stock})
+
 
     return (
         <div className="itemCount">

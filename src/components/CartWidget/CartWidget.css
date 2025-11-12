@@ -2,8 +2,22 @@
     background-color: transparent;
     cursor: pointer;
     border: none;
+    position: relative;
 }
 
 .shoppingCart{
     color: white;
+}
+
+.counter{
+    position: absolute;
+    background-color: chartreuse;
+    bottom: -10px;
+    right: -10px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

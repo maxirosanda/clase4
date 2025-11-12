@@ -21,3 +21,10 @@
 .itemDetail-description{
     text-align: center;
 }
+.dark{
+    color: white;
+}
+
+.light{
+    color: black;
+}

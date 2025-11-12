@@ -3,26 +3,44 @@ import ButtonPrimary from '../ButtonPrimary/ButtonPrimary'
 import ItemCount from '../ItemCount/ItemCount'
 import './ItemDetail.css'
 import { ShoppingBasket } from "lucide-react"
+import { useContext } from 'react'
+import { ThemeContext } from '../../context/ThemeContent'
+import { CartContext } from '../../context/CartContext'
+import useCount from '../../hooks/useCount'
 
 
 
 function ItemDetail ({product}) {
 
     const navigate = useNavigate()
+    const {dark} = useContext(ThemeContext)
+    const {addCartProduct} = useContext(CartContext)
+
+    const {count, less, add} = useCount({initia:1, stock:product.stock})
 
     const navigateProductDetail = () => {
 
         navigate(`/product-detail/${product.id}`)
     }
 
+    const handleAddCartProduct = () => {
+        const newCartProduct = {
+            id: product.id,
+            quantity:count
+        }
+        addCartProduct(newCartProduct)
+
+    }
+
+
+
     return (
         <div className="itemDetail">
-            <h3 className='itemDetail-title'>{product.title}</h3>
-            <p className='itemDetail-description'>{product.description}</p>
-            <ItemCount stock={product.stock}/>
+            <p className={`itemDetail-description ${dark ? "dark" : "light"}`}>{product.description}</p>
+            <ItemCount count={count} less={less} add={add}/>
             <span>{product.price} $ ARG</span>
             <div className='itemDetail-buttons'>
-                <ButtonPrimary>
+                <ButtonPrimary onClick={handleAddCartProduct}>
                     <ShoppingBasket />
                     Carrito
                 </ButtonPrimary>
