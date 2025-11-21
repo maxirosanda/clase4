@@ -36,7 +36,7 @@ function ItemDetail ({product}) {
 
     return (
         <div className="itemDetail">
-            <p className={`itemDetail-description ${dark ? "dark" : "light"}`}>{product.description}</p>
+            <p className={`itemDetail-description ${dark ? "dark" : "light"}`}>{product.title}</p>
             <ItemCount count={count} less={less} add={add}/>
             <span>{product.price} $ ARG</span>
             <div className='itemDetail-buttons'>

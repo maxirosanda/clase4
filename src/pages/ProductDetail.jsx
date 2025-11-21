@@ -1,23 +1,28 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router"
+import { getFirestore, doc, getDoc } from 'firebase/firestore/lite';
+import { useParams } from "react-router";
+import { app } from "../firebaseConfig";
+
 
 function ProductDetail () {
 
     const {productId} = useParams()
-    const [product, setProduct] = useState({})
+    const [product,setProduct] = useState({})
 
     useEffect(()=>{
-        (async()=>{
+        (async ()=>{
             try {
-                const response = await fetch('/products.json')
-                const products = await response.json()
-                const productFind = products.find(product => product.id == productId)
-                setProduct(productFind)
+                const db = getFirestore(app);
+                const productCollection = doc(db, 'products',productId);
+                const productSnapshot = await getDoc(productCollection)
+                const productDb = {id:productCollection.id,...productSnapshot.data()}
+                setProduct(productDb)
             } catch (error) {
                 console.log(error)
             }
         })()
-    },[productId])
+
+    },[])
 
 
     return (
