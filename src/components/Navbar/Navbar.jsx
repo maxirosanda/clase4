@@ -1,13 +1,29 @@
-import { NavLink } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
 import CartWidget from '../CartWidget/CartWidget'
 import './Navbar.css'
 import ButtonTheme from '../ButtonTheme/ButtonTheme'
+import { getAuth, signOut } from "firebase/auth";
+import { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
 
 
 function Navbar (){
+
+    const auth = getAuth();
+    const navigate = useNavigate()
+    const {deleteUser} = useContext(UserContext)
+
+    const handleLogout = () => {
+        signOut(auth).then(() => {
+         deleteUser()
+         navigate('/login')
+        }).catch((error) => {
+            console.log(error)
+        });
+    }
     return (
                 <div className='navbar-container'>
-                    <img className='navbar-icon' src='./src/assets/trash-icon.png'/>
+                    <img className='navbar-icon' src='./trash-icon.png'/>
                     <nav className='navbar'>
                         
                         <ul className='links'>
@@ -17,6 +33,7 @@ function Navbar (){
                         </ul>
                         <CartWidget/>
                         <ButtonTheme/>
+                        <button onClick={handleLogout}>Salir</button>
                     </nav>
                 </div>
     )

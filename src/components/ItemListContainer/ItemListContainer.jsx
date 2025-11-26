@@ -3,10 +3,12 @@ import ItemDetail from '../ItemDetail/itemDetail'
 import './ItemListContainer.css'
 import { app } from '../../firebaseConfig';
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import Loading from '../Loading/Loading';
 
 function ItemListContainer () {
 
     const [products,setProducts] = useState([])
+    const [isLoadingProducts,setLoadingProducts] = useState(true)
 
 
     useEffect(()=>{
@@ -29,6 +31,17 @@ function ItemListContainer () {
         })()
 
     },[])
+
+    useEffect(()=>{
+        if(products.length !== 0) {
+            setTimeout(()=>{
+                setLoadingProducts(false)
+            },600)
+        }
+    },[products])
+
+
+    if(isLoadingProducts) return <Loading loading={isLoadingProducts}/>
 
 
     return (

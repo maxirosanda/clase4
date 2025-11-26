@@ -8,24 +8,31 @@ import NotFound from './pages/NotFound';
 import ThemeProvider from './context/ThemeContent';
 import CartProvider from './context/CartContext';
 import Navbar from './components/Navbar/Navbar'
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import UserProvider from './context/UserContext';
 
 function App() {
 
   return (
-    <CartProvider>
-      <ThemeProvider>
-        <BrowserRouter>
-          <Navbar/>
-          <Routes>
-            <Route path="*" element={<NotFound/>}/>
-            <Route path="/" element={<Products/>}/>
-            <Route path="/product-detail/:productId" element={<ProductDetail/>}/>
-            <Route path="/cart" element={<Cart/>}/>
-            <Route path="/contact" element={<Contact/>}/>
-          </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
-    </CartProvider>
+    <UserProvider>
+      <CartProvider>
+        <ThemeProvider>
+          <BrowserRouter>
+            <Navbar/>
+            <Routes>
+              <Route path="*" element={<NotFound/>}/>
+              <Route path="/" element={<Products/>}/>
+              <Route path="/product-detail/:productId" element={<ProductDetail/>}/>
+              <Route path="/cart" element={<Cart/>}/>
+              <Route path="/contact" element={<Contact/>}/>
+              <Route path="/login" element={<Login/>}/>
+              <Route path='/register' element={<Register/>}/>
+            </Routes>
+          </BrowserRouter>
+        </ThemeProvider>
+      </CartProvider>
+    </UserProvider>
   )
 }
 

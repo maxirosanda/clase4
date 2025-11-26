@@ -2,12 +2,27 @@ import { useEffect, useState } from "react"
 import { getFirestore, doc, getDoc } from 'firebase/firestore/lite';
 import { useParams } from "react-router";
 import { app } from "../firebaseConfig";
+import Loading from "../components/Loading/Loading";
+import { useNavigate } from "react-router";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 
 function ProductDetail () {
 
     const {productId} = useParams()
     const [product,setProduct] = useState({})
+    const [isLoadingProduct,setLoadingProduct] = useState(true)
+    const {user} = useContext(UserContext)
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+                    console.log(user.accessToken)
+        if(user.accessToken === ""){
+            navigate("/login")
+        }
+    },[])
+
 
     useEffect(()=>{
         (async ()=>{
@@ -15,7 +30,7 @@ function ProductDetail () {
                 const db = getFirestore(app);
                 const productCollection = doc(db, 'products',productId);
                 const productSnapshot = await getDoc(productCollection)
-                const productDb = {id:productCollection.id,...productSnapshot.data()}
+                const productDb = {id:productSnapshot.id,...productSnapshot.data()}
                 setProduct(productDb)
             } catch (error) {
                 console.log(error)
@@ -23,6 +38,17 @@ function ProductDetail () {
         })()
 
     },[])
+
+    useEffect(()=>{
+        if(product.title) {
+            setTimeout(()=>{
+                setLoadingProduct(false)
+            },600)
+        }
+    },[product])
+
+
+    if(isLoadingProduct) return <Loading loading={isLoadingProduct}/>
 
 
     return (
